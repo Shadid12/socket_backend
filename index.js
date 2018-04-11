@@ -16,9 +16,12 @@ const io = socket(server);
 io.set('origins', '*:*');
 
 io.on('connection', (socket) => {
-    console.log(socket.id);
-    
-    socket.on('SEND_MESSAGE', function(data){
-        io.emit('RECEIVE_MESSAGE', data);
-    });
+    let handshakeData = socket.request;
+    console.log("middleware:", handshakeData._query['foo']);
+
+    io.emit('JOINED_ROOM', { user: 'some name' } );
+
+    // socket.on('SEND_MESSAGE', function(data){
+    //     io.emit('RECEIVE_MESSAGE', data);
+    // });
 });
