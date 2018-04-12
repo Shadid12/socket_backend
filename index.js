@@ -19,9 +19,10 @@ io.on('connection', (socket) => {
     let handshakeData = socket.request;
     console.log("middleware:", handshakeData._query['foo']);
 
-    io.emit('JOINED_ROOM', { user: 'some name' } );
+    io.emit('JOINED_ROOM', { user: `Annonymous ${socket.id}` } );
 
-    // socket.on('SEND_MESSAGE', function(data){
-    //     io.emit('RECEIVE_MESSAGE', data);
-    // });
+    socket.on('SEND_MESSAGE', function(data) {
+        console.log(data);
+        io.emit('RECEIVE_MESSAGE', data);
+    });
 });
