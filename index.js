@@ -17,9 +17,8 @@ io.set('origins', '*:*');
 
 io.on('connection', (socket) => {
     let handshakeData = socket.request;
-    console.log("middleware:", handshakeData._query['foo']);
-
-    io.emit('JOINED_ROOM', { user: `Annonymous ${socket.id}` } );
+    let username = handshakeData._query['userName'];
+    io.emit('JOINED_ROOM', { username: username } );
 
     socket.on('SEND_MESSAGE', function(data) {
         console.log(data);
